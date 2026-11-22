@@ -1,6 +1,4 @@
 # Pessoa 1: dados iniciais do cão.
-# Na futura classe Cao, os dados abaixo serão atributos de cada instância.
-# None indica um recurso ainda não carregado ou criado.
 
 from configuracoes import (
     CAMINHO_IMAGEM_CAO,

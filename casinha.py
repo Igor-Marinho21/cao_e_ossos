@@ -1,5 +1,4 @@
 # Pessoa 3: dados iniciais da casinha.
-# A verificação de vitória será implementada depois, usando a contagem de jogo.py.
 
 from configuracoes import (
     AREA_ENTRADA_CASINHA,
