@@ -2,7 +2,7 @@
 
 import pygame
 
-from configuracoes import (
+from configuracoes import ( #VALORES JÁ PREDEFINIDOS NO configuracoes.py
     AREA_ENTRADA_CASINHA,
     CAMINHO_IMAGEM_CASINHA,
     POSICAO_CASINHA,
@@ -11,37 +11,39 @@ from configuracoes import (
 
 caminho_imagem = CAMINHO_IMAGEM_CASINHA
 imagem = None
-posicao = POSICAO_CASINHA
-tamanho = TAMANHO_CASINHA
+posicao = POSICAO_CASINHA #(670,390)
+tamanho = TAMANHO_CASINHA #(100,130)
 
-# RETANGULO DA IMAGEM E RETANGULO ESPECIFICO DA PORTA
-rect = pygame.Rect(posicao, tamanho)
-area_entrada = AREA_ENTRADA_CASINHA
-rect_entrada = pygame.Rect(area_entrada)
+rect = pygame.Rect(posicao, tamanho) #RETANGULO DA CASINHA INTEIRA
+area_entrada = AREA_ENTRADA_CASINHA #(702, 464, 36, 56)
+rect_entrada = pygame.Rect(area_entrada) #AREA DE ENTRADA QUE O BYTE PRECISA PASSAR
 
 
-# CARREGA A IMAGEM E AJUSTA O TAMANHO (CHAMAR DEPOIS DE CRIAR A JANELA)
 def carregar_imagem():
-    imagem_carregada = pygame.image.load(str(caminho_imagem)).convert_alpha()
-    imagem_carregada = pygame.transform.scale(imagem_carregada, tamanho)
-    return imagem_carregada
+    imagem_carregada = pygame.image.load(str(caminho_imagem)).convert_alpha() #CONVERTE O CAMINHO_IMAGEM_CASINHA, QUE ESTÁ EM PNG, PARA ALGO QUE DÊ PARA TRABALHAR 
+    imagem_carregada = pygame.transform.scale(imagem_carregada, tamanho) #AJUSTE NA ESCALA DO CAMINHO DA CASINHA DE ACORDO COM O TAMANHO
+    
+    return imagem_carregada 
 
 
-# DESENHA A CASINHA NA TELA
 def desenhar(tela):
-    tela.blit(imagem, rect)
+    tela.blit(imagem, rect) #RECEBE A TELA DO JOGO E DESENHA A UMAGEM DA CASINHA NELA (COPIANDO A IMAGEM PARA A TELA NA POSIÇÃO DO RECT)
 
 
-# CONFERE SE TODOS OS ITENS JA FORAM COLETADOS
-def todos_coletados(coletadas, necessarias):
-    for tipo in necessarias:
-        if (coletadas[tipo] < necessarias[tipo]):
-            return False
-    return True
+def todos_coletados(quantidades_coletadas, quantidades_necessarias): #RECEBE OS 2 DICIONARIOS DO jogo.py PARA A VERIFICAÇÃO NA FUNÇÃO 
+    
+    for tipo in quantidades_necessarias:
+        if (quantidades_coletadas[tipo] < quantidades_necessarias[tipo]): #VERIFICA SE CADA OBJETO REALMENTE FOI DEVIDAMENTE COLETADO, DADO SUAS QUANTIDADES NECESSARIAS
+            
+            return False #SE FALTAR ALGUMA QUANTIDADE, RETORNA FALSE E ACABA A FULÇÃO
+            
+    return True #APENAS RETORNA TRUE SE TODOS OS OBJETOS FORAM DEVIDAMENTE ATENDIDOS
 
 
-# VERIFICA SE O CAO CHEGOU NA PORTA DEPOIS DE COLETAR TUDO
-def verificar_vitoria(rect_cao, coletadas, necessarias):
-    if ((todos_coletados(coletadas, necessarias)) and (rect_entrada.collidepoint(rect_cao.center))):
+#VERIFICA SE O CAO CHEGOU NA PORTA DEPOIS DE COLETAR TUDO
+def verificar_vitoria(rect_cao, quantidades_coletadas, quantidades_necessarias):
+    if ((todos_coletados(quantidades_coletadas, quantidades_necessarias)) and (rect_entrada.collidepoint(rect_cao.center))): #CONDIÇÃO DA VITÓRIA: VERIFICA SE A FUNÇÃO DOS COLETÁVEIS É TRUE E VERIFICA SE O (x, y) CENTRAL DO CÃO ESTÁ DENTRO DO RECT DA ENTRADA  
+        
         return True
+        
     return False
