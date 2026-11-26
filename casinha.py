@@ -27,7 +27,7 @@ def carregar_imagem():
 
 
 def desenhar(tela):
-    tela.blit(imagem, rect) #RECEBE A TELA DO JOGO E DESENHA A UMAGEM DA CASINHA NELA (COPIANDO A IMAGEM PARA A TELA NA POSIÇÃO DO RECT)
+    tela.blit(imagem, rect) #RECEBE A TELA DO JOGO E DESENHA A UMA IMAGEM DA CASINHA NELA (COPIANDO A IMAGEM PARA A TELA NA POSIÇÃO DO RECT)
 
 
 def todos_coletados(quantidades_coletadas, quantidades_necessarias): #RECEBE OS 2 DICIONARIOS DO jogo.py PARA A VERIFICAÇÃO NA FUNÇÃO 
